@@ -45,10 +45,10 @@ module.exports = (appInfo) => {
   // oss存储
   config.oss = {
     client: {
-      accessKeyId: "LTAI5tGLnccxiQUXUms4LeTc",
-      accessKeySecret: "16rVtxo0G30XumABls3ArNcRTSyI1Y",
-      bucket: "bridge-cky",
-      endpoint: "oss-cn-hangzhou.aliyuncs.com",
+      accessKeyId: "",//oss秘钥id
+      accessKeySecret: "",//oss秘钥
+      bucket: "",
+      endpoint: "",
       timeout: "60s",
     },
   };
