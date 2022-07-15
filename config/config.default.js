@@ -26,7 +26,38 @@ module.exports = (appInfo) => {
   config.multipart = {
     fileSize: "50mb", // 文件大小
     mode: "file", // 文件模式
-    whitelist: [".xlsx", ".xls", ".png"], // 文件类型白名单
+    whitelist: [
+      ".et",
+      ".xls",
+      ".xlt",
+      ".xlsx",
+      ".xlsm",
+      ".xltx",
+      ".xltm",
+      ".csv",
+      ".doc",
+      ".docx",
+      ".txt",
+      ".dot",
+      ".wps",
+      ".wpt",
+      ".dotx",
+      ".docm",
+      ".dotm",
+      ".rtf",
+      ".ppt",
+      ".pptx",
+      ".pptm",
+      ".ppsx",
+      ".ppsm",
+      ".pps",
+      ".potx",
+      ".potm",
+      ".dpt",
+      ".dps",
+      ".pdf",
+      ".PDF",
+    ], // 文件类型白名单
   };
 
   //mysql数据连接

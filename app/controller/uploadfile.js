@@ -65,11 +65,18 @@ class uploadFile extends Controller {
     }
   }
 
+  //上传到阿里oss
   async uploadOSS() {
     const { ctx, app } = this;
-    const file = ctx.request.files[0];
-    let result = await ctx.oss.put(file.filename, file.filepath);
-    console.log(result);
+    const file = ctx.request.files;
+    const data = ctx.request.body;
+    console.log(file);
+    for (let index = 0; index < file.length; index++) {
+      let name = file[index].filename;
+      const filename = "ProjectModel/" + name;
+      await ctx.oss.put(filename, file[index].filepath);
+      await ctx.service.equipment.increaseFile(file[index], data);
+    }
     this.success(null, "上传文件成功");
   }
 
@@ -78,12 +85,44 @@ class uploadFile extends Controller {
     let info = await ctx.service.equipment.getEquipment();
     this.success(info, "获取数据成功");
   }
+
   async getFileList() {
     const { ctx, app } = this;
     let info = await ctx.service.equipment.fileList();
     this.success(info, "获取数据成功");
   }
 
+  async getFileData() {
+    const { ctx, app } = this;
+    const v = ctx.request.query;
+    let info = await ctx.service.equipment.fileData(v);
+    if (info.length > 0) {
+      info.map((items, index) => {
+        const filename = "ProjectModel/" + items.filename;
+        info[index]["fileUrl"] = ctx.oss.signatureUrl(filename, {
+          expires: 1800,
+          process: "imm/previewdoc,copy_1",
+        });
+      });
+      this.success(info, "数据获取成功");
+    } else {
+      this.success(null, "nodeTitle错误");
+    }
+  }
+
+  async getFilePreviewUrl() {
+    const { ctx, app } = this;
+    const v = ctx.request.query;
+    const filename = "ProjectModel/" + v.filename;
+    const signUrl = ctx.oss.signatureUrl(filename, {
+      expires: 1800,
+      process: "imm/previewdoc,copy_1",
+    });
+    console.log(signUrl);
+    this.success(signUrl, "数据获取成功");
+  }
+
+  //导出表格
   async exportPhysicalEquipment() {
     const { ctx, app } = this;
     let info = await ctx.service.equipment.exportEquipment();

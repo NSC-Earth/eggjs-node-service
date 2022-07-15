@@ -15,8 +15,10 @@ module.exports = (app) => {
     controller.projecttree.getCatalogTypeList
   );
   router.post("/uploadfile", controller.uploadfile.upload);
-  router.post("/uploadOSS", controller.uploadfile.uploadOSS);
+  router.post("/uploadModelData", controller.uploadfile.uploadOSS);
   router.get("/getEquipment", controller.uploadfile.getPhysicalEquipment);
   router.get("/exportEquipment", controller.uploadfile.exportPhysicalEquipment);
   router.get("/getFileList", controller.uploadfile.getFileList);
+  router.get("/getFileData", controller.uploadfile.getFileData);
+  router.get("/getFilePreviewUrl", controller.uploadfile.getFilePreviewUrl);
 };

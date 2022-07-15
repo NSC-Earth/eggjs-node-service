@@ -53,5 +53,20 @@ class Equipment extends Service {
     const sql = `select * from file_list`;
     return await this.app.mysql.query(sql);
   }
+  async fileData(data) {
+    const sql = `select * from file_list where nodeTitle='${data.nodeTitle}'`;
+    return await this.app.mysql.query(sql);
+  }
+  async filePreviewUrl(data) {
+    const sql = `select * from file_list where nodeTitle='${data.nodeTitle}'`;
+    return await this.app.mysql.query(sql);
+  }
+  async increaseFile(data, filedata) {
+    const sql = `INSERT INTO file_list (filename,type,nodeTitle) VALUES 
+    ('${data.filename}',
+    '${data.filename.substring(data.filename.lastIndexOf(".") + 1)}',
+    '${filedata.nodeTitle}')`;
+    return await this.app.mysql.query(sql);
+  }
 }
 module.exports = Equipment;
